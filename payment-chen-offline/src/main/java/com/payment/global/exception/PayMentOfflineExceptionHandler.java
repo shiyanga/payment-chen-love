@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author <a href="jxdong@Ctrip.com">jeff</a>
  * @version 2015/12/2 17:09
  */
 

@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
- * @author <a href="jxdong@Ctrip.com">jeff</a>
  * @version 2015/7/02 11:13
  */
 public class DateUtil {

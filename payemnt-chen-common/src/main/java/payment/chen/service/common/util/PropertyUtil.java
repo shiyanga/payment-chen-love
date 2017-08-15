@@ -5,7 +5,6 @@ import org.apache.commons.lang.StringUtils;
 import java.util.Properties;
 
 /**
- * @author <a href="jxdong@Ctrip.com">jeff</a>
  * @version 2015/07/01 15:45
  */
 public class PropertyUtil {

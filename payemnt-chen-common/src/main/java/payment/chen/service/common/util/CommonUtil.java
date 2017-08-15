@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * @author <a href="jxdong@Ctrip.com">jeff</a>
  * @version 2015/6/11 14:52
  */
 public class CommonUtil {

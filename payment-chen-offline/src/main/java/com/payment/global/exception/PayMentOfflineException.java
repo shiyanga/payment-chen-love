@@ -3,7 +3,6 @@ import com.payment.entity.enums.ErrorEnum;
 import payment.chen.service.common.util.StringUtils;
 
 /**
- * @author <a href="jxdong@Ctrip.com">jeff</a>
  * @version 2015/11/25 15:46
  */
 public class PayMentOfflineException extends Exception {

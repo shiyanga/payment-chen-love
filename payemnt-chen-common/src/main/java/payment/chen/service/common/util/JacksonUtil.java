@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author <a href="jxdong@Ctrip.com">jeff</a>
  * @version 2015/6/29 13:59
  */
 public class JacksonUtil {
