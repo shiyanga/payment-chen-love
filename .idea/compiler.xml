@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="payemnt-chen-common" />
+        <module name="payment-chen-offline" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="payemnt-chen-common" target="1.8" />
+      <module name="payment-chen-api" target="1.8" />
+      <module name="payment-chen-app" target="1.8" />
+      <module name="payment-chen-client" target="1.8" />
+      <module name="payment-chen-common" target="1.8" />
+      <module name="payment-chen-consumer" target="1.8" />
+      <module name="payment-chen-elasticSearch" target="1.8" />
+      <module name="payment-chen-hadmin" target="1.8" />
+      <module name="payment-chen-iservice" target="1.8" />
+      <module name="payment-chen-love" target="1.8" />
+      <module name="payment-chen-offline" target="1.8" />
+      <module name="payment-chen-provider" target="1.8" />
+      <module name="payment-chen-search" target="1.8" />
+      <module name="payment-chen-service" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

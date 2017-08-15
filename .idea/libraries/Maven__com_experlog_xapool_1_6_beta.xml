@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.experlog:xapool:1.6-beta">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/experlog/xapool/1.6-beta/xapool-1.6-beta.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/experlog/xapool/1.6-beta/xapool-1.6-beta-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/experlog/xapool/1.6-beta/xapool-1.6-beta-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

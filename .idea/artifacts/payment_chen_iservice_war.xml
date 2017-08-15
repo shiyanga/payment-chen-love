@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="payment-chen-iservice:war">
+    <output-path>$PROJECT_DIR$/payment-chen-iservice/target</output-path>
+    <root id="archive" name="payment-chen-iservice.war">
+      <element id="artifact" artifact-name="payment-chen-iservice:war exploded" />
+    </root>
+  </artifact>
+</component>

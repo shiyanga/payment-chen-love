@@ -1,0 +1,6 @@
+api:dubbo api 提供方
+app:给用户提供界面的
+consumer:dubbo 消费方
+hadmin:用户界面原始的样子
+offline:后台
+provider:dubbo 服务提供方

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/payemnt-chen-common" />
+    <file type="web" url="file://$PROJECT_DIR$/payment-chen-app" />
+    <file type="web" url="file://$PROJECT_DIR$/payment-chen-common" />
+    <file type="web" url="file://$PROJECT_DIR$/payment-chen-elasticSearch" />
+    <file type="web" url="file://$PROJECT_DIR$/payment-chen-hadmin" />
+    <file type="web" url="file://$PROJECT_DIR$/payment-chen-iservice" />
+    <file type="web" url="file://$PROJECT_DIR$/payment-chen-offline" />
+    <file type="web" url="file://$PROJECT_DIR$/payment-chen-online" />
+    <file type="web" url="file://$PROJECT_DIR$/payment-chen-search" />
+    <file type="web" url="file://$PROJECT_DIR$/payment-chen-service" />
+    <type id="Spring" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/payment-chen-api/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-chen-app/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-chen-client/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-chen-common/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-chen-consumer/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-chen-contract/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-chen-elasticSearch/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-chen-hadmin/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-chen-iservice/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-chen-provider/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-chen-search/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-chen-service/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

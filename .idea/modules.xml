@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/payemnt-chen-common/payemnt-chen-common.iml" filepath="$PROJECT_DIR$/payemnt-chen-common/payemnt-chen-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/payment-chen-love.iml" filepath="$PROJECT_DIR$/payment-chen-love.iml" />
+      <module fileurl="file://$PROJECT_DIR$/payment-chen-offline/payment-chen-offline.iml" filepath="$PROJECT_DIR$/payment-chen-offline/payment-chen-offline.iml" />
+    </modules>
+  </component>
+</project>
