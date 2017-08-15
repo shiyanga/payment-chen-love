@@ -15,9 +15,9 @@
 
         <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
         <property name="url"
-                  value="jdbc:log4jdbc:mysql://127.0.0.1:3306/groupwormholedb?useSSL=false"/>
+                  value="jdbc:log4jdbc:mysql://rm-wz9n2996205078iyuo.mysql.rds.aliyuncs.com:3306/groupwormholedb?useSSL=false"/>
         <property name="username" value="root"/>
-        <property name="password" value="12345678"/>
+        <property name="password" value="China1111!"/>
         <!-- 初始化连接大小 -->
         <property name="initialSize" value="0"></property>
         <!-- 连接池最大数量 -->
@@ -67,9 +67,9 @@
     <bean id="dataBnbOrderSourceMySQL" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/BnbOrderDB?useSSL=false"/>
+        <property name="url" value="jdbc:mysql://rm-wz9n2996205078iyuo.mysql.rds.aliyuncs.com:3306/BnbOrderDB?useSSL=false"/>
         <property name="username" value="root"/>
-        <property name="password" value="12345678"/>
+        <property name="password" value="China1111!"/>
         <!-- 初始化连接大小 -->
         <property name="initialSize" value="0"></property>
         <!-- 连接池最大数量 -->
