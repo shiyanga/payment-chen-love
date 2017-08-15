@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="payment-chen-hadmin:war">
-    <output-path>$PROJECT_DIR$/payment-chen-hadmin/target</output-path>
-    <root id="archive" name="payment-chen-hadmin.war">
-      <element id="artifact" artifact-name="payment-chen-hadmin:war exploded" />
-    </root>
-  </artifact>
-</component>

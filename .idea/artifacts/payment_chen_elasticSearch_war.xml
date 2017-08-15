@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="payment-chen-elasticSearch:war">
-    <output-path>$PROJECT_DIR$/payment-chen-elasticSearch/target</output-path>
-    <root id="archive" name="payment-chen-elasticSearch.war">
-      <element id="artifact" artifact-name="payment-chen-elasticSearch:war exploded" />
-    </root>
-  </artifact>
-</component>
