@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payment.mapper.groupwormholemapper.AuthControlMapper">
+
+    <resultMap id="RoleAuthRP" type="com.payment.entity.groupwormhole.AuthRoleResource">
+        <id column="authId" jdbcType="INTEGER" property="id"/>
+        <result column="authCreateTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="authUpdateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="authUpdateTime" jdbcType="TIMESTAMP" property="version"/>
+
+        <association property="role" resultMap="AuthRoleRP"/>
+        <association property="resource" resultMap="ResourceRP"/>
+    </resultMap>
+
+    <resultMap id="UserRoleRP" type="com.payment.entity.groupwormhole.AuthUserRole">
+        <id column="aurId" jdbcType="INTEGER" property="id"/>
+        <result column="aurCreateTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="aurUpdateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="aurUpdateTime" jdbcType="TIMESTAMP" property="version"/>
+
+        <association property="role" resultMap="AuthRoleRP"/>
+        <association property="user" resultMap="AuthUserRP"/>
+    </resultMap>
+
+    <resultMap id="ResourceRP" type="com.payment.entity.groupwormhole.AuthResource">
+        <id column="resourceId" jdbcType="INTEGER" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="parentId" jdbcType="INTEGER" property="parentId"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="reqMethod" jdbcType="VARCHAR" property="reqMethod"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="version"/>
+    </resultMap>
+
+    <resultMap id="AuthRoleRP" type="com.payment.entity.groupwormhole.AuthRole">
+        <id column="roleId" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+    <resultMap id="AuthUserRP" type="com.payment.entity.groupwormhole.AuthUser">
+        <id column="userId" jdbcType="INTEGER" property="id"/>
+        <result column="employeeNumber" jdbcType="VARCHAR" property="employeeNumber"/>
+        <result column="loginPassword" jdbcType="VARCHAR" property="loginPassword"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="department" jdbcType="VARCHAR" property="department"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="loginTime" jdbcType="TIMESTAMP" property="loginTime"/>
+        <result column="logoutTime" jdbcType="TIMESTAMP" property="logoutTime"/>
+        <collection property="roles" ofType="com.payment.entity.groupwormhole.AuthRole">
+            <id column="roleId" jdbcType="INTEGER" property="id"/>
+            <result column="roleName" jdbcType="VARCHAR" property="name"/>
+            <result column="roleDescription" jdbcType="VARCHAR" property="description"/>
+        </collection>
+    </resultMap>
+
+
+
+    <!-- 查询权限【角色-资源】信息 -->
+    <select id="selectRoleResource" resultMap="RoleAuthRP">
+        SELECT
+        aa.id AS authId,
+        aa.createTime AS authCreateTime,
+        aa.dataChange_lastTime AS authUpdateTime,
+
+        ar.id AS roleId,
+        ar.`name`,
+        ar.`status`,
+        ar.description,
+
+        are.id AS resourceId,
+        are.`parent_id` as parentId,
+        are.`code`,
+        are.description,
+        are.req_method AS reqMethod,
+        are.url
+        FROM
+        auth_role_resource aa,
+        auth_role ar,
+        auth_resource are
+        WHERE
+        aa.resource_id = are.id
+        AND aa.role_id = ar.id
+        <if test="roleId != null">
+            AND ar.id = #{roleId,jdbcType=INTEGER}
+        </if>
+        <if test="resourceId != null">
+            AND aa.resource_id = #{resourceId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!-- 查询【员工-角色信息】 -->
+    <select id="selectUserRole" resultMap="UserRoleRP">
+        SELECT
+        aur.id AS aurId,
+        aur.createTime AS aurCreateTime,
+        aur.dataChange_lastTime AS aurUpdateTime,
+
+        ar.id AS roleId,
+        ar.`name`,
+        ar.`status`,
+        ar.description,
+
+        au.id AS userId,
+        au.employee_number AS employeeNumber,
+        au.`name`,
+        au.email,
+        au.telephone,
+        au.department,
+        au.`status`,
+        au.remark,
+        au.login_time,
+        au.logout_time
+        FROM
+        auth_user au,
+        auth_user_role aur,
+        auth_role ar
+        WHERE
+        au.id = aur.user_id
+        AND ar.id = aur.role_id
+        AND au.`status` = 1
+        <if test="roleId != null">
+            AND ar.id = #{roleId,jdbcType=INTEGER}
+        </if>
+        <if test="userId != null">
+            AND aur.user_id = #{userId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!-- 查询【资源信息】 -->
+    <select id="selectAuthResource" resultMap="ResourceRP">
+        SELECT
+        are.id AS resourceId,
+        are.`code`,
+        are.`parent_id` AS parentId,
+        are.description,
+        are.req_method AS reqMethod,
+        are.url,
+        are.createTime AS createTime,
+        are.dataChange_LastTime AS updateTime
+        FROM
+        auth_resource are
+        WHERE TRUE
+
+        <if test="resourceId != null">
+            AND are.id = #{resourceId,jdbcType=INTEGER}
+        </if>
+        <if test="parentId != null">
+            AND are.parent_id = #{parentId,jdbcType=INTEGER}
+        </if>
+        <if test="resourceCode != null">
+            AND are.`code` = #{resourceCode,jdbcType=VARCHAR}
+        </if>
+        <if test="resourceUrl != null">
+            AND are.`url` = #{resourceUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="resourceReqType != null">
+            AND are.`req_method` = #{resourceReqType,jdbcType=VARCHAR}
+        </if>
+        <if test="blurResourceDesc != null">
+            AND are.`description` like CONCAT('%', #{blurResourceDesc, jdbcType=VARCHAR},'%')
+        </if>
+
+    </select>
+
+    <insert id="insertAuthResource" parameterType="com.payment.entity.groupwormhole.AuthResource"
+            useGeneratedKeys="true" keyProperty="id">
+
+        INSERT INTO `auth_resource` (
+        `parent_id`,
+        `code`,
+        `description`,
+        `url`,
+        `req_method`
+        )
+        VALUES (
+        #{parentId, jdbcType=INTEGER},
+        #{code, jdbcType=VARCHAR},
+        #{description, jdbcType=VARCHAR},
+        #{url, jdbcType=VARCHAR},
+        #{reqMethod, jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateAuthResource" parameterType="com.payment.entity.groupwormhole.AuthResource">
+        update auth_resource are
+        <set>
+            <if test="parentId == null || parentId>0">
+                are.parent_id = #{parentId, jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                are.description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                are.url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="reqMethod != null">
+                are.req_method = #{reqMethod,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where
+        id = #{id, jdbcType=INTEGER}
+    </update>
+
+    <!-- 查询【权限用户信息】 -->
+    <select id="selectAuthUser" resultMap="AuthUserRP">
+        SELECT
+        au.id AS userId,
+        au.employee_number AS employeeNumber,
+        au.login_password AS loginPassword,
+        au.`name`,
+        au.email,
+        au.telephone,
+        au.department,
+        au.`status`,
+        au.remark,
+        au.login_time,
+        au.logout_time,
+        au.createTime AS createTime,
+        au.dataChange_LastTime AS updateTime,
+
+        a.roleId,
+        a.roleName,
+        a.roleDescription
+        FROM
+        auth_user au
+        LEFT JOIN (
+        SELECT
+        ar.`id` as roleId,
+        ar.`name` as roleName,
+        ar.description as roleDescription,
+        aur.user_id as userId
+        FROM
+        auth_role ar,
+        auth_user_role aur
+        WHERE
+        ar.id = aur.role_id
+        )a
+        on au.id = a.userId
+        WHERE TRUE
+        <if test="userId != null">
+            AND au.id = #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="employeeNumber != null">
+            AND au.employee_number = #{employeeNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="name != null">
+            AND au.name = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="email != null">
+            AND au.`email` = #{email,jdbcType=VARCHAR}
+        </if>
+        <if test="telephone != null">
+            AND au.`telephone` = #{telephone,jdbcType=VARCHAR}
+        </if>
+        <if test="STATUS != null">
+            AND au.`status` = #{status,jdbcType=SMALLINT}
+        </if>
+    </select>
+
+    <update id="updateAuthUser" parameterType="com.payment.entity.groupwormhole.AuthUser">
+        update auth_user au
+        <set>
+            <if test="employeeNumber != null">
+                au.employee_number = #{employeeNumber, jdbcType=VARCHAR},
+            </if>
+            <if test="loginPassword != null">
+                au.login_password = #{loginPassword, jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                au.name = #{name, jdbcType=VARCHAR},
+            </if>
+            <if test="employeeNumber != null">
+                au.employee_number = #{employeeNumber, jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                au.email = #{email, jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                au.telephone = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="department != null">
+                au.department = #{department,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                au.status = #{status,jdbcType=SMALLINT},
+            </if>
+            <if test="remark != null">
+                au.remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="loginTime != null">
+                au.login_time = #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logoutTime != null">
+                au.logout_time = #{logoutTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where
+        id = #{id, jdbcType=INTEGER}
+    </update>
+
+    <insert id="insertAuthUser" parameterType="com.payment.entity.groupwormhole.AuthUser" useGeneratedKeys="true"
+            keyProperty="id">
+
+        INSERT INTO `auth_user` (
+        `employee_number`,
+        `name`,
+        `login_password`,
+        `email`,
+        `telephone`,
+        `department`,
+        `status`,
+        `remark`
+        )
+        VALUES (
+        #{employeeNumber, jdbcType=VARCHAR},
+        #{name, jdbcType=VARCHAR},
+        #{loginPassword, jdbcType=VARCHAR},
+        #{email, jdbcType=VARCHAR},
+        #{telephone, jdbcType=VARCHAR},
+        #{department, jdbcType=VARCHAR},
+        #{status, jdbcType=SMALLINT},
+        #{remark, jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!-- 查询【权限角色信息】 -->
+    <select id="selectAuthRole" resultMap="AuthRoleRP">
+        SELECT
+        ar.id AS roleId,
+        ar.`name`,
+        ar.`status`,
+        ar.description,
+        ar.createTime AS createTime,
+        ar.dataChange_LastTime AS updateTime
+        FROM
+        auth_role ar
+        WHERE TRUE
+        <if test="roleId != null">
+            AND ar.`id` = #{roleId,jdbcType=INTEGER}
+        </if>
+        <if test="name != null">
+            AND ar.`name` = #{name,jdbcType=VARCHAR}
+        </if>
+        <if test="STATUS != null">
+            AND ar.`status` = #{status,jdbcType=SMALLINT}
+        </if>
+    </select>
+
+    <update id="updateAuthRole" parameterType="com.payment.entity.groupwormhole.AuthRole">
+        update auth_role ar
+        <set>
+            <if test="name != null">
+                ar.name = #{name, jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                ar.description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where
+        id = #{id, jdbcType=INTEGER}
+    </update>
+
+    <insert id="insertAuthRole" parameterType="com.payment.entity.groupwormhole.AuthRole" useGeneratedKeys="true"
+            keyProperty="id">
+
+        INSERT INTO `auth_role` (
+        `name`,
+        `description`,
+        `status`
+        )
+        VALUES (
+        #{name, jdbcType=VARCHAR},
+        #{description, jdbcType=VARCHAR},
+        #{status, jdbcType=SMALLINT}
+        )
+    </insert>
+
+    <insert id="insertRoleResource">
+
+        INSERT INTO `auth_role_resource` (
+        `role_id`,
+        `resource_id`
+        )
+        VALUES (
+        #{roleId, jdbcType=INTEGER},
+        #{resourceId, jdbcType=INTEGER}
+        )
+    </insert>
+
+    <delete id="deleteRoleResource">
+        DELETE FROM `auth_role_resource`
+        WHERE
+        `id` = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteUserRoleByUserId">
+        DELETE FROM `auth_user_role`
+        WHERE
+        `user_id` = #{userId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteUserRoleByRoleId">
+        DELETE FROM `auth_user_role`
+        WHERE
+        `role_id` = #{roleId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteRoleResourceByRoleId">
+        DELETE FROM `auth_role_resource`
+        WHERE
+        `role_id` = #{roleId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteRoleResourceByResourceId">
+        DELETE FROM `auth_role_resource`
+        WHERE
+        `resource_id` = #{resourceId,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteResource">
+        DELETE FROM `auth_resource`
+        WHERE
+        `id` = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insertUserRole">
+
+        INSERT INTO `auth_user_role` (
+        `role_id`,
+        `user_id`
+        )
+        VALUES (
+        #{roleId, jdbcType=INTEGER},
+        #{userId, jdbcType=INTEGER}
+        )
+    </insert>
+
+    <delete id="deleteUserRole">
+        DELETE FROM `auth_user_role`
+        WHERE
+        `id` = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteUser">
+        DELETE FROM `auth_user`
+        WHERE
+        `id` = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteRole">
+        DELETE FROM `auth_role`
+        WHERE
+        `id` = #{id,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

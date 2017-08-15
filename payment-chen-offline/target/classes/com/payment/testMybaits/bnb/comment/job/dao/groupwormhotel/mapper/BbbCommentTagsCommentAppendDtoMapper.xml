@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bnb.comment.job.dao.groupwormhotel.mapper.BbbCommentTagsCommentAppendDtoMapper">
+  <resultMap id="BaseResultMap" type="bnb.comment.job.dto.wormhoteldb.BbbCommentTagsCommentAppendDto">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="commentid" jdbcType="BIGINT" property="commentid" />
+    <result column="tagid" jdbcType="INTEGER" property="tagid" />
+    <result column="spaceid" jdbcType="BIGINT" property="spaceid" />
+    <result column="highlight" jdbcType="VARCHAR" property="highlight" />
+    <result column="dataChange_lastTime" jdbcType="TIMESTAMP" property="dataChange_lastTime" />
+    <result column="dataCreate_lastTime" jdbcType="TIMESTAMP" property="dataCreate_lastTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, commentid, tagid, spaceid, highlight, dataChange_lastTime, dataCreate_lastTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bnb_comment_tags_comment_append
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bnb_comment_tags_comment_append
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="bnb.comment.job.dto.wormhoteldb.BbbCommentTagsCommentAppendDto">
+    insert into bnb_comment_tags_comment_append (id, commentid, tagid, 
+      spaceid, highlight, dataChange_lastTime, 
+      dataCreate_lastTime)
+    values (#{id,jdbcType=BIGINT}, #{commentid,jdbcType=BIGINT}, #{tagid,jdbcType=INTEGER}, 
+      #{spaceid,jdbcType=BIGINT}, #{highlight,jdbcType=VARCHAR}, #{dataChange_lastTime,jdbcType=TIMESTAMP}, 
+      #{dataCreate_lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="bnb.comment.job.dto.wormhoteldb.BbbCommentTagsCommentAppendDto">
+    insert into bnb_comment_tags_comment_append
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="commentid != null">
+        commentid,
+      </if>
+      <if test="tagid != null">
+        tagid,
+      </if>
+      <if test="spaceid != null">
+        spaceid,
+      </if>
+      <if test="highlight != null">
+        highlight,
+      </if>
+      <if test="dataChange_lastTime != null">
+        dataChange_lastTime,
+      </if>
+      <if test="dataCreate_lastTime != null">
+        dataCreate_lastTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="commentid != null">
+        #{commentid,jdbcType=BIGINT},
+      </if>
+      <if test="tagid != null">
+        #{tagid,jdbcType=INTEGER},
+      </if>
+      <if test="spaceid != null">
+        #{spaceid,jdbcType=BIGINT},
+      </if>
+      <if test="highlight != null">
+        #{highlight,jdbcType=VARCHAR},
+      </if>
+      <if test="dataChange_lastTime != null">
+        #{dataChange_lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataCreate_lastTime != null">
+        #{dataCreate_lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="bnb.comment.job.dto.wormhoteldb.BbbCommentTagsCommentAppendDto">
+    update bnb_comment_tags_comment_append
+    <set>
+      <if test="commentid != null">
+        commentid = #{commentid,jdbcType=BIGINT},
+      </if>
+      <if test="tagid != null">
+        tagid = #{tagid,jdbcType=INTEGER},
+      </if>
+      <if test="spaceid != null">
+        spaceid = #{spaceid,jdbcType=BIGINT},
+      </if>
+      <if test="highlight != null">
+        highlight = #{highlight,jdbcType=VARCHAR},
+      </if>
+      <if test="dataChange_lastTime != null">
+        dataChange_lastTime = #{dataChange_lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataCreate_lastTime != null">
+        dataCreate_lastTime = #{dataCreate_lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="bnb.comment.job.dto.wormhoteldb.BbbCommentTagsCommentAppendDto">
+    update bnb_comment_tags_comment_append
+    set commentid = #{commentid,jdbcType=BIGINT},
+      tagid = #{tagid,jdbcType=INTEGER},
+      spaceid = #{spaceid,jdbcType=BIGINT},
+      highlight = #{highlight,jdbcType=VARCHAR},
+      dataChange_lastTime = #{dataChange_lastTime,jdbcType=TIMESTAMP},
+      dataCreate_lastTime = #{dataCreate_lastTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

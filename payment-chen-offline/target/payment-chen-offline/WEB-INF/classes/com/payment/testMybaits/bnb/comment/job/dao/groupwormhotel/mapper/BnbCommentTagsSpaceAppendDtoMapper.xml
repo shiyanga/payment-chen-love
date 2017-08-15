@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bnb.comment.job.dao.groupwormhotel.mapper.BnbCommentTagsSpaceAppendDtoMapper">
+  <resultMap id="BaseResultMap" type="bnb.comment.job.dto.wormhoteldb.BnbCommentTagsSpaceAppendDto">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="spaceId" jdbcType="BIGINT" property="spaceId" />
+    <result column="tagid" jdbcType="BIGINT" property="tagid" />
+    <result column="popularity" jdbcType="BIGINT" property="popularity" />
+    <result column="dataCreate_lastTime" jdbcType="TIMESTAMP" property="dataCreate_lastTime" />
+    <result column="dataChange_lastTime" jdbcType="TIMESTAMP" property="dataChange_lastTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, spaceId, tagid, popularity, dataCreate_lastTime, dataChange_lastTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bnb_comment_tags_space_append
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bnb_comment_tags_space_append
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="bnb.comment.job.dto.wormhoteldb.BnbCommentTagsSpaceAppendDto">
+    insert into bnb_comment_tags_space_append (id, spaceId, tagid, 
+      popularity, dataCreate_lastTime, dataChange_lastTime
+      )
+    values (#{id,jdbcType=BIGINT}, #{spaceId,jdbcType=BIGINT}, #{tagid,jdbcType=BIGINT}, 
+      #{popularity,jdbcType=BIGINT}, #{dataCreate_lastTime,jdbcType=TIMESTAMP}, #{dataChange_lastTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="bnb.comment.job.dto.wormhoteldb.BnbCommentTagsSpaceAppendDto">
+    insert into bnb_comment_tags_space_append
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="spaceId != null">
+        spaceId,
+      </if>
+      <if test="tagid != null">
+        tagid,
+      </if>
+      <if test="popularity != null">
+        popularity,
+      </if>
+      <if test="dataCreate_lastTime != null">
+        dataCreate_lastTime,
+      </if>
+      <if test="dataChange_lastTime != null">
+        dataChange_lastTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="spaceId != null">
+        #{spaceId,jdbcType=BIGINT},
+      </if>
+      <if test="tagid != null">
+        #{tagid,jdbcType=BIGINT},
+      </if>
+      <if test="popularity != null">
+        #{popularity,jdbcType=BIGINT},
+      </if>
+      <if test="dataCreate_lastTime != null">
+        #{dataCreate_lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataChange_lastTime != null">
+        #{dataChange_lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="bnb.comment.job.dto.wormhoteldb.BnbCommentTagsSpaceAppendDto">
+    update bnb_comment_tags_space_append
+    <set>
+      <if test="spaceId != null">
+        spaceId = #{spaceId,jdbcType=BIGINT},
+      </if>
+      <if test="tagid != null">
+        tagid = #{tagid,jdbcType=BIGINT},
+      </if>
+      <if test="popularity != null">
+        popularity = #{popularity,jdbcType=BIGINT},
+      </if>
+      <if test="dataCreate_lastTime != null">
+        dataCreate_lastTime = #{dataCreate_lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dataChange_lastTime != null">
+        dataChange_lastTime = #{dataChange_lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="bnb.comment.job.dto.wormhoteldb.BnbCommentTagsSpaceAppendDto">
+    update bnb_comment_tags_space_append
+    set spaceId = #{spaceId,jdbcType=BIGINT},
+      tagid = #{tagid,jdbcType=BIGINT},
+      popularity = #{popularity,jdbcType=BIGINT},
+      dataCreate_lastTime = #{dataCreate_lastTime,jdbcType=TIMESTAMP},
+      dataChange_lastTime = #{dataChange_lastTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/>
+
+    <!--连接本地库测试用(xmlns:p="http://www.springframework.org/schema/p")-->
+    <bean id="GroupWormholeDataSourceMySql" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+
+        <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+        <property name="url"
+                  value="jdbc:log4jdbc:mysql://127.0.0.1:3306/groupwormholedb?useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="12345678"/>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="0"></property>
+        <!-- 连接池最大数量 -->
+        <property name="maxActive" value="20"></property>
+        <!-- 连接池最大空闲 -->
+        <property name="maxIdle" value="20"></property>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="1"></property>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="60000"></property>
+    </bean>
+
+    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="GroupWormholeDataSourceMySql"/>
+        <property name="configLocation" value="classpath:spring-mybatis.xml"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManagerMySQL"/>
+    <bean id="transactionManagerMySQL" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="GroupWormholeDataSourceMySql"/>
+    </bean>
+    <!-- define the SqlSessionFactory -->
+    <bean id="sqlSessionFactoryMySQL" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="GroupWormholeDataSourceMySql"/>
+        <property name="mapperLocations" value="classpath*:com/payment/mapper/groupwormholemapper/*.xml"></property>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryMySQL"/>
+        <property name="basePackage" value="com.payment.mapper.groupwormholemapper"/>
+
+    </bean>
+
+
+    <!--连接本地库测试用(xmlns:p="http://www.springframework.org/schema/p")-->
+    <bean id="dataBnbOrderSourceMySQL" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/BnbOrderDB?useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="12345678"/>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="0"></property>
+        <!-- 连接池最大数量 -->
+        <property name="maxActive" value="20"></property>
+        <!-- 连接池最大空闲 -->
+        <property name="maxIdle" value="20"></property>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="1"></property>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="60000"></property>
+    </bean>
+
+
+    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="ctripBnbOrderDalDatasourceFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataBnbOrderSourceMySQL"/>
+        <property name="configLocation" value="classpath:spring-mybatis.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlBnbOrderSessionFactoryMySQL"/>
+        <property name="basePackage" value="com.payment.mapper.bnbordermapper"/>
+    </bean>
+
+    <!-- define the SqlSessionFactory -->
+    <bean id="sqlBnbOrderSessionFactoryMySQL" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataBnbOrderSourceMySQL"/>
+        <property name="mapperLocations" value="classpath*:com/payment/mapper/bnbordermapper/*.xml"></property>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="1"/>
+        <property name="maxTotal" value="5"/>
+        <property name="blockWhenExhausted" value="true"/>
+        <property name="maxWaitMillis" value="30000"/>
+        <property name="testOnBorrow" value="true"/>
+    </bean>
+
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+        <property name="usePool" value="true"/>
+        <property name="hostName" value="${host}"/>
+        <property name="port" value="${port}"/>
+        <property name="timeout" value="${timeout}"/>
+        <property name="password" value="${passwords}"/>
+
+    </bean>
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+        <property name="hashKeySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+    </bean>
+
+
+</beans>

@@ -1,0 +1,1 @@
+<#include "include/common-page.ftl" encoding="UTF-8">

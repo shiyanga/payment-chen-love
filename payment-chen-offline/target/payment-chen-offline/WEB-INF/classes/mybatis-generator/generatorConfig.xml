@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+
+<generatorConfiguration>
+    <classPathEntry
+            location="D:\Users\shi_y.CN1\.m2\repository\mysql\mysql-connector-java\5.1.39\mysql-connector-java-5.1.39.jar"/>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="javaFileEncoding" value="UTF-8"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+            <!-- 是否生成注释代时间戳-->
+            <property name="suppressDate" value="true" />
+
+        </commentGenerator>
+
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://pub.mysql.db.dev.sh.ctripcorp.com:28747/groupwormholedb?useSSL=false"
+                        userId="us_dev_sy" password="12345678">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+
+        </javaTypeResolver>
+
+
+        <!--<javaModelGenerator targetPackage="com.payment.entity.groupwormhole"-->
+                            <!--targetProject="src/main/java/com/payment/testMybaits">-->
+
+
+            <!--&lt;!&ndash; 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] &ndash;&gt;-->
+            <!--<property name="enableSubPackages" value="true"/>-->
+            <!--&lt;!&ndash; 是否针对string类型的字段在set的时候进行trim调用 &ndash;&gt;-->
+            <!--<property name="trimStrings" value="true"/>-->
+            <!--&lt;!&ndash;domain字段的命名规则，false:默认为驼峰命名 true:按数据库真实命名  &ndash;&gt;-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</javaModelGenerator>-->
+
+        <!--<sqlMapGenerator targetPackage="com.payment.mapper.groupwormholemapper"-->
+                         <!--targetProject="src/main/java/com/payment/testMybaits">-->
+            <!--<property name="enableSubPackages" value="true"/>-->
+        <!--</sqlMapGenerator>-->
+
+        <!--<javaClientGenerator type="XMLMAPPER"-->
+                             <!--targetPackage="com.payment.mapper.groupwormholemapper"-->
+                             <!--targetProject="src/main/java/com/payment/testMybaits">-->
+            <!--<property name="enableSubPackages" value="true"/>-->
+        <!--</javaClientGenerator>-->
+
+
+
+
+
+        <javaModelGenerator targetPackage="bnb.comment.job.dto.wormhoteldb"
+                            targetProject="src/main/java/com/payment/testMybaits">
+
+
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.oop.eksp.user.model， true:com.oop.eksp.user.model.[schemaName] -->
+            <property name="enableSubPackages" value="true"/>
+            <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+            <property name="trimStrings" value="true"/>
+            <!--domain字段的命名规则，false:默认为驼峰命名 true:按数据库真实命名  -->
+            <property name="useActualColumnNames" value="false"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="bnb.comment.job.dao.groupwormhotel.mapper"
+                         targetProject="src/main/java/com/payment/testMybaits">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="bnb.comment.job.dao.groupwormhotel.mapper"
+                             targetProject="src/main/java/com/payment/testMybaits">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+
+
+
+        <table tableName="bnb_comment_tags_space_append" domainObjectName="BnbCommentTagsSpaceAppendDto"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="true"/>
+            <property name="selectAllOrderByClause" value="age desc,username asc"/>
+        </table>
+
+
+
+
+        <table tableName="bnb_comment_tags_append" domainObjectName="BnbCommentTagsAppendDto"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="true"/>
+            <property name="selectAllOrderByClause" value="age desc,username asc"/>
+        </table>
+
+
+
+
+
+        <table tableName="bnb_comment_tags_comment_append" domainObjectName="BbbCommentTagsCommentAppendDto"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="true"/>
+            <property name="selectAllOrderByClause" value="age desc,username asc"/>
+        </table>
+
+
+
+
+
+
+
+    </context>
+</generatorConfiguration>

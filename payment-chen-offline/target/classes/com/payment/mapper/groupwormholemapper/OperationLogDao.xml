@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.payment.mapper.groupwormholemapper.OperationLogDao">
+
+    <resultMap id="BaseResultMap" type="com.payment.entity.groupwormhole.OperationLog">
+        <id column="logId" jdbcType="BIGINT" property="logId"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="dataChange_LastTime" property="version"/>
+        <result column="dataChange_lastTime" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ool.logId, ool.operator, ool.target, ool.operationType, ool.resultCode, ool.description, ool.createTime, ool.dataChange_lastTime
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM bnb_operationlog ool
+        WHERE ool.logId = #{primaryKey,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByMultiConditions" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM bnb_operationlog ool
+        WHERE
+        TRUE
+        <if test="operators != null and operators.length>0">
+            AND ool.operator in
+            <foreach item="item" index="indexStatus" collection="operators" open="(" separator="," close=")">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="targets != null and targets.length>0">
+            AND ool.target in
+            <foreach item="item" index="indexStatus" collection="targets" open="(" separator="," close=")">
+                #{item,jdbcType=VARCHAR}
+            </foreach>
+        </if>
+        <if test="operationTypes != null and operationTypes.length>0">
+            AND ool.operationType in
+            <foreach item="item" index="index" collection="operationTypes" open="(" separator="," close=")">
+                #{item,jdbcType=SMALLINT}
+            </foreach>
+        </if>
+        <if test="orderColumn != null">
+            ORDER BY ool.${orderColumn}
+            <if test="orderDir != null">
+                ${orderDir}
+            </if>
+        </if>
+    </select>
+
+    <select id="selectByOrderId" parameterType="long" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM bnb_operationlog ool
+        INNER JOIN bnb_task_distribution task ON CAST(task.taskId as CHAR(30)) = ool.target
+        WHERE task.orderId = #{orderId,jdbcType=BIGINT}
+        ORDER BY ool.createTime ASC
+        LIMIT 0,10
+    </select>
+
+    <insert id="insert" parameterType="com.payment.entity.groupwormhole.OperationLog">
+        INSERT INTO bnb_operationlog
+        (operator, target, operationType, resultCode, description, createTime, dataChange_lastTime)
+        VALUES (
+            #{operator,jdbcType=VARCHAR},
+            #{target,jdbcType=VARCHAR},
+            #{operationType,jdbcType=SMALLINT},
+            #{resultCode,jdbcType=INTEGER},
+            #{description,jdbcType=VARCHAR},
+            now(),
+            now())
+    </insert>
+
+    <delete id="deleteByPrimaryKey">
+        DELETE FROM bnb_operationlog
+        WHERE logId = #{primaryKey,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteSqlCollectionsByAppID">
+        DELETE FROM bnb_sql_collection
+        WHERE appId = #{appID,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>
