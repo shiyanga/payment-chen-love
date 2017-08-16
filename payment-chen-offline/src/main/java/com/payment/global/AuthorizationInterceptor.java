@@ -1,11 +1,15 @@
 package com.payment.global;
+
+import com.payment.common.util.CookingUtil;
+import com.payment.config.Constants;
+import com.payment.entity.enums.ErrorEnum;
+import com.payment.entity.groupwormhole.TokenModel;
 import com.payment.entity.publicenitty.Result;
 import com.payment.global.exception.PayMentOfflineException;
 import com.payment.service.groupwormholeservice.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import payment.chen.service.common.util.CookingUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,37 +54,26 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         //从header中得到token
-        String authorization = CookingUtil.getCookieByName(request, "JSESSIONID").getValue();
+        String authorization = CookingUtil.getCookieByName(request, "randomkey").getValue();
+        //验证token
+        TokenModel model = manager.getToken(authorization);
+        if (manager.checkToken(model)) {
+            //如果token验证成功，将token对应的用户id存在request中，便于之后注入
+//            request.setAttribute(Constants.CURRENT_USER_ID, model.getUserId());
+//            return true;
+
+            Result authResult = AuthControlHelper.getInstance().validateAuthority(
+                    "A00072",
+                    reqUrl,
+                    request.getMethod());
 
 
-        Result authResult = AuthControlHelper.getInstance().validateAuthority(
-                "A00072",
-                reqUrl,
-                request.getMethod());
+        } else {
+            return false;
+        }
+
 
         return true;
-
-
-
-        //验证token
-//        TokenModel model = manager.getToken(authorization);
-//        if (manager.checkToken(model)) {
-//            //如果token验证成功，将token对应的用户id存在request中，便于之后注入
-//           request.setAttribute(Constants.CURRENT_USER_ID, model.getUserId());
-//          return true;
-//
-//            Result authResult = AuthControlHelper.getInstance().validateAuthority(
-//                    "A00072",
-//                    reqUrl,
-//                    request.getMethod());
-//
-//
-//        } else {
-//            return false;
-//        }
-//
-//
-//        return true;
 
 //        else {
 //            throw new PayMentOfflineException(ErrorEnum.NO_PERMISSION, "");

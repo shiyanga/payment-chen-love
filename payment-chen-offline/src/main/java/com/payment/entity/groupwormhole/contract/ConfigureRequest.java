@@ -1,9 +1,9 @@
 package com.payment.entity.groupwormhole.contract;
 
+import com.payment.common.util.CommonUtil;
 import com.payment.entity.publicenitty.BootDatatablesRequest;
 import com.payment.entity.publicenitty.DatatablesRequest;
 import org.apache.commons.lang.StringUtils;
-import payment.chen.service.common.util.CommonUtil;
 
 import java.util.List;
 

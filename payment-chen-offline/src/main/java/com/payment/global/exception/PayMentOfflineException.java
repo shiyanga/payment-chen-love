@@ -1,6 +1,6 @@
 package com.payment.global.exception;
+import com.payment.common.util.StringUtils;
 import com.payment.entity.enums.ErrorEnum;
-import payment.chen.service.common.util.StringUtils;
 
 /**
  * @version 2015/11/25 15:46

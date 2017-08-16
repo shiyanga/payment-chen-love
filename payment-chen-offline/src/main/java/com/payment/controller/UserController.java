@@ -1,11 +1,14 @@
 package com.payment.controller;
 
+import com.payment.common.util.CommonUtil;
+import com.payment.common.util.StringUtils;
 import com.payment.entity.groupwormhole.AuthUser;
 import com.payment.entity.groupwormhole.TokenModel;
 import com.payment.entity.publicenitty.Result;
 import com.payment.mapper.groupwormholemapper.AuthControlMapper;
 import com.payment.service.groupwormholeservice.TokenManager;
 import com.payment.service.redis.RedisAuthorityService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +52,23 @@ public class UserController extends BasicController {
         authUser.setId(1000);
         authUser.setEmployeeNumber("A00072");
         authUser.setName("石阳");
+
+
+        Map<String, Object> param = new HashMap<>();
+        param.put("employeeNumber",username);
+        param.put("loginPassword",DigestUtils.md5Hex(password));
+        Map<String, Object> data = new HashMap<>();
+
+        List<AuthUser> users = authControlMapper.selectAuthUser(param);
+        if(CommonUtil.listIsNotBlank(users))
+        {
+            data.put("error","yes");
+            return modelAndView("login",data);
+        }
+
+
+        data.put("error","no");
+
         redisAuthorityService.getRedisUserByEmployeeId(authUser.getEmployeeNumber());
        //生成一个token，保存用户登录状态
         TokenModel model = tokenManager.createToken(authUser.getId());
@@ -58,7 +78,7 @@ public class UserController extends BasicController {
         result.setResultCode(0);
         result.setResultMsg("成功");
         addCookie(response, "randomkey", model.getUserId() + "_" + model.getToken(), 72000);
-        return modelAndView("welcome");
+        return modelAndView("welcome",data);
     }
 
 

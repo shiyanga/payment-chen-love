@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>esayui信息管理系统</title>
+    <title>信息管理系统</title>
     <link href="resources/css/iconfont.css" rel="stylesheet">
     <style type="text/css">
         html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
@@ -594,6 +594,12 @@
             font-size: 12px;
             margin-bottom: 50px
         }
+
+        input:-webkit-autofill,
+        textarea:-webkit-autofill,
+        select:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 1000px white inset;
+        }
     </style>
 
 
@@ -618,22 +624,22 @@
                 <#--<i class="iconfont">&#xe62e;</i>-->
                 <#--<span>请输入用户名</span>-->
                 <#--</div>-->
-                    <form id="formlogin" action="/login/userlogin" method="post">
+                    <form id="formlogin" action="login/userlogin" method="post" autocomplete="off">
                         <div class="lg-username input-item clearfix">
                             <i class="icon Hui-iconfont">&#xe60d;</i>
-                            <input type="text" placeholder="账号/邮箱" id="username" name="username">
+                            <input type="text" placeholder="账号/邮箱" id="username" name="username" autocomplete="off">
                         </div>
                         <div class="lg-password input-item clearfix">
                             <i class="icon Hui-iconfont">&#xe63f;</i>
-                            <input type="password" placeholder="请输入密码" id="password" name="password">
+                            <input type="password" placeholder="请输入密码" id="password" name="password" autocomplete="off">
                         </div>
-                        <div class="lg-check clearfix">
-                            <div class="input-item">
-                                <i class="icon Hui-iconfont">&#xe633;</i>
-                                <input type="text" placeholder="验证码">
-                            </div>
-                            <span class="check-code">XD34F</span>
-                        </div>
+                        <#--<div class="lg-check clearfix">-->
+                            <#--<div class="input-item">-->
+                                <#--<i class="icon Hui-iconfont">&#xe633;</i>-->
+                                <#--<input type="text" placeholder="验证码">-->
+                            <#--</div>-->
+                            <#--<span class="check-code">XD34F</span>-->
+                        <#--</div>-->
                         <div class="tips clearfix">
                             <label><input type="checkbox" checked="checked">记住用户名</label>
                             <a href="javascript:;" class="register">立即注册</a>
@@ -662,6 +668,15 @@
         <div class="other-info">建议使用IE8及以上版本浏览器&nbsp;沪ICP备&nbsp;012345678号&nbsp;E-mail：admin@easyui.com</div>
     </div>
 </div>
+
+
+<script>
+    var errori =${error};
+if(errori=='yes'){
+    alert("用户名或密码错误！");
+}
+</script>
+
 </body>
 </html>
 

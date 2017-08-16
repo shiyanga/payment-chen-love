@@ -1,5 +1,6 @@
 package com.payment.controller;
 
+import com.payment.common.util.CommonUtil;
 import com.payment.entity.groupwormhole.BnbConfigureEntity;
 import com.payment.entity.groupwormhole.contract.ConfigureDTO;
 import com.payment.entity.publicenitty.BasicDTO;
@@ -7,7 +8,6 @@ import com.payment.entity.publicenitty.Entity;
 import com.payment.service.groupwormholeimpl.AuthControlImpl;
 import org.apache.log4j.Logger;
 import org.springframework.cglib.beans.BeanCopier;
-import payment.chen.service.common.util.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;

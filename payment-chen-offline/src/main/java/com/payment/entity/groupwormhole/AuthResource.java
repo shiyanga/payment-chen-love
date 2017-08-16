@@ -1,6 +1,6 @@
 package com.payment.entity.groupwormhole;
+import com.payment.common.util.CommonUtil;
 import com.payment.entity.publicenitty.Entity;
-import payment.chen.service.common.util.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,0 @@
-package payment.chen.service.common;
-
-/**
- * Created by shi_y on 2017/8/11.
- */
-public class x {
-}

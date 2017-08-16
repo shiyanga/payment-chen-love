@@ -1,6 +1,6 @@
 package com.payment.entity.publicenitty;
+import com.payment.common.util.CommonUtil;
 import org.apache.commons.lang.StringUtils;
-import payment.chen.service.common.util.CommonUtil;
 
 import java.util.List;
 

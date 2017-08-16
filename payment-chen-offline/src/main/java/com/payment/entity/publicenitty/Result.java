@@ -1,7 +1,7 @@
 package com.payment.entity.publicenitty;
+import com.payment.common.util.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import payment.chen.service.common.util.StringUtils;
 
 import java.util.Map;
 

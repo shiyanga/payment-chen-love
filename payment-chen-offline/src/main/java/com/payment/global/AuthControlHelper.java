@@ -1,4 +1,6 @@
 package com.payment.global;
+import com.payment.common.util.CommonUtil;
+import com.payment.common.util.StringUtils;
 import com.payment.entity.groupwormhole.AuthRoleResource;
 import com.payment.entity.groupwormhole.AuthUser;
 import com.payment.entity.groupwormhole.AuthUserRole;
@@ -9,8 +11,6 @@ import com.payment.service.groupwormholeimpl.LocalCacheAuthorityImpl;
 import com.payment.service.groupwormholeservice.AuthorityService;
 import com.payment.service.redis.RedisAuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import payment.chen.service.common.util.CommonUtil;
-import payment.chen.service.common.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;

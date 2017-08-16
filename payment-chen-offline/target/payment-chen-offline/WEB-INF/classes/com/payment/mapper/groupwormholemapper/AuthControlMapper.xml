@@ -262,6 +262,11 @@
         <if test="STATUS != null">
             AND au.`status` = #{status,jdbcType=SMALLINT}
         </if>
+
+        <if test="loginPassword != null">
+            AND  au.login_password = #{loginPassword,jdbcType=VARCHAR}
+        </if>
+
     </select>
 
     <update id="updateAuthUser" parameterType="com.payment.entity.groupwormhole.AuthUser">

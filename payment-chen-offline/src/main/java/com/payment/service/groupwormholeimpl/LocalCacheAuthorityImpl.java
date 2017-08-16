@@ -1,12 +1,11 @@
 package com.payment.service.groupwormholeimpl;
 
+import com.payment.common.util.CommonUtil;
+import com.payment.common.util.StringUtils;
 import com.payment.entity.groupwormhole.contract.AuthObject;
 import com.payment.entity.publicenitty.Result;
 import com.payment.service.groupwormholeservice.AuthorityService;
 import org.springframework.stereotype.Service;
-import payment.chen.service.common.util.CommonUtil;
-import payment.chen.service.common.util.StringUtils;
-
 import java.util.*;
 
 /**
